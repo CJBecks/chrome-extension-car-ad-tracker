@@ -1,10 +1,20 @@
 {
-    "manifest_version": 3,
-    "name": "Chrome Extension Starter",
-    "version": "1.0.0",
-    "action" : {
-      "default_popup": "popup.html"
+  "manifest_version": 3,
+  "name": "Chrome Extension Starter",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "popup.html"
   },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+        "matches": ["*://*/*"],
+        "js": ["content.js"]
+    }
+],
   "options_page": "options.html",
   "description": "This is the description of your extension",
   "icons": {
@@ -13,4 +23,4 @@
     "48": "public/48.png",
     "192": "public/192.png"
   }
-  }
+}

@@ -27,7 +27,7 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
       <h4 className="text-lg font-bold">{car.make} {car.model}</h4>
       <p className="text-sm">Year: {car.year}</p>
       <p className="text-sm">Price: {car.price}</p>
-      <p className="text-sm">Days on Market: {car.daysOnMarket ?? "Unknown"}</p>
+      {/* <p className="text-sm">Days on Market: {car.daysOnMarket ?? "Unknown"}</p> */}
       <p className="text-sm">
         URL: <a href={car.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{car.url}</a>
       </p>

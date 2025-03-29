@@ -3,41 +3,54 @@ import { useState } from "react";
 import { CarDetails } from "../CarDetails/CarDetails";
 
 interface CarListProps {
-  filterCarId?: string;
+  activeCarId?: string;
   trackedCars: { [tabId: string]: ICarDetails | null };
 }
 
-export const CarList = ({ filterCarId, trackedCars }: CarListProps) => {
+export const CarList = ({ activeCarId, trackedCars }: CarListProps) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const filteredCars = Object.fromEntries(
-    Object.entries(trackedCars).filter(
+  // Create a local copy of trackedCars to isolate changes
+  const localTrackedCars = { ...trackedCars };
+
+  const filteredCars = Object.entries(localTrackedCars)
+    .filter(
       ([, car]) =>
         car &&
-        (!filterCarId || car.url !== filterCarId) &&
         Object.values(car).some((value) =>
           value?.toString().toLowerCase().includes(searchQuery.toLowerCase())
         )
     )
-  );
+    .sort(([, carA], [, carB]) => {
+      if (carA?.url === activeCarId) return -1; // Lock the car with filterCarId to the top
+      if (carB?.url === activeCarId) return 1;
+      return 0;
+    });
 
   return (
     <div className="space-y-4">
-      {Object.entries(filteredCars).length > 0 ? (
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full px-3 py-2 border rounded"
+      />
+      {filteredCars.length > 0 ? (
         <>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
-          />
-          {Object.entries(filteredCars).map(([tabId, car]) =>
-            car ? <CarDetails key={tabId} car={car} isNew={false} /> : null
+          {filteredCars.map(([tabId, car]) =>
+            car ? (
+              <CarDetails
+                key={tabId}
+                car={car}
+                isNew={false}
+                isHighlighted={car.url === activeCarId} // Highlight if URL matches activeCarId
+              />
+            ) : null
           )}
         </>
       ) : (
-        <div className="text-lg font-bold">No cars to display.. find something interesting</div>
+        <div className="mt-4">No tracked cars found.</div> // Added margin-top
       )}
     </div>
   );

@@ -52,19 +52,17 @@ export const Popup = () => {
           Remove All
         </button>
       </div>
-      {carDetails ? (
-        <>
-          <CarDetails
-            isHighlighted={true}
-            car={carDetails}
-            isNew={!Object.values(allTrackedCarDetailsDictionary).some(
-              (trackedCar) => trackedCar?.url === carDetails.url
-            )}
-          />
-        </>
+      {carDetails && !Object.values(allTrackedCarDetailsDictionary).some(
+        (trackedCar) => trackedCar?.url === carDetails.url
+      ) ? (
+        <CarDetails
+          isHighlighted={true}
+          car={carDetails}
+          isNew={true}
+        />
       ) : null}
 
-      <CarList trackedCars={allTrackedCarDetailsDictionary} filterCarId={carDetails?.url} />
+      <CarList trackedCars={allTrackedCarDetailsDictionary} activeCarId={carDetails?.url} />
     </div>
   );
 };

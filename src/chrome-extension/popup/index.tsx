@@ -79,7 +79,6 @@ export const Popup = () => {
 
       <CarList trackedCars={allTrackedCarDetailsDictionary} />
 
-
       <pre>{JSON.stringify(allTrackedCarDetailsDictionary, null, 2)}</pre>
     </div>
   );

@@ -1,22 +1,17 @@
 import { ICarDetails } from "../../content";
 import "../global.css";
 import { useEffect, useState } from "react";
+import { TrackedCar } from "./trackedCar/TrackedCar";
 
 export const Popup = () => {
   console.log("Popup mounted");
   const [carDetails, setCarDetails] = useState<ICarDetails | null>(null);
 
   useEffect(() => {
-    console.log("Popup mounted");
-
-    // TODO get the current open tab id
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tabId = tabs[0].id;
-      console.log("Current tab id:", tabId);
-
       // Request car details from the background script
       chrome.runtime.sendMessage(
-        { action: "getCarDetails", tabId: tabId },
+        { action: "getCarDetails", tabId: tabs[0].id },
         (response) => {
 
           console.log("Response received in popup:", response);
@@ -26,40 +21,19 @@ export const Popup = () => {
           }
         }
       );
+
+      // TODO: Get list of current tracked cars
     });
   }, []);
 
-  // function test(): void {
-  //   chrome.runtime.sendMessage({ action: "getCarDetails" }, (response) => {
-
-  //     console.log("Response received in popup:", response);
-
-  //     if (response?.carDetails) {
-  //       setCarDetails(response.carDetails);
-  //     }
-  //   });
-  // }
-
   return (
-    <div className="text-5xl p-10 font-extrabold">
+    <div className="p-4 space-y-4">
       {carDetails ? (
-        <div>
-          <div>Make: {carDetails.make}</div>
-          <div>Model: {carDetails.model}</div>
-          <div>Year: {carDetails.year}</div>
-          <div>Price: {carDetails.price}</div>
-          <div>Date Listed: {carDetails.dateListed}</div>
-        </div>
-      ) : (
-        <div>No car details available</div>
-      )}
+          <TrackedCar car={carDetails} onRemove={() => {}} isHighlighted={true} />
 
-      {/* <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={test}
-      >
-        View Listing
-      </button> */}
+      ) : (
+        <div className="text-lg font-bold">No car details available</div>
+      )}
     </div>
   );
 };

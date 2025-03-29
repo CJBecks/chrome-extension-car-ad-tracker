@@ -57,14 +57,14 @@ export const Popup = () => {
           <CarDetails
             isHighlighted={true}
             car={carDetails}
-            isNew={true}
+            isNew={!Object.values(allTrackedCarDetailsDictionary).some(
+              (trackedCar) => trackedCar?.url === carDetails.url
+            )}
           />
         </>
       ) : null}
 
-      <CarList trackedCars={allTrackedCarDetailsDictionary} />
-
-      <pre>{JSON.stringify(allTrackedCarDetailsDictionary, null, 2)}</pre>
+      <CarList trackedCars={allTrackedCarDetailsDictionary} filterCarId={carDetails?.url} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension Starter",
+  "name": "Vehicle Listing Tracker by automall.ca",
   "version": "1.0.0",
   "action": {
     "default_popup": "popup.html"
@@ -11,10 +11,10 @@
   },
   "content_scripts": [
     {
-        "matches": ["*://*/*"],
-        "js": ["content.js"]
+      "matches": ["*://*/*"],
+      "js": ["content.js"]
     }
-],
+  ],
   "options_page": "options.html",
   "description": "This is the description of your extension",
   "icons": {
@@ -22,5 +22,6 @@
     "32": "public/32.png",
     "48": "public/48.png",
     "192": "public/192.png"
-  }
+  },
+  "permissions": ["tabs", "activeTab", "scripting"]
 }

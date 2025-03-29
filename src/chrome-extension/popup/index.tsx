@@ -2,9 +2,11 @@ import { ICarDetails } from "../../content";
 import "../global.css";
 import { useEffect, useState } from "react";
 import { CarDetails } from "./CarDetails/CarDetails";
+import { CarList } from "./CarList/CarList";
 
 export const Popup = () => {
   const [carDetails, setCarDetails] = useState<ICarDetails | null>(null);
+  const [allTrackedCarDetailsDictionary, setAllTrackedCarDetailsDictionary] = useState<{ [tabId: string]: ICarDetails | null }>({});
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -12,17 +14,26 @@ export const Popup = () => {
       chrome.runtime.sendMessage(
         { action: "getCarDetails", tabId: tabs[0].id },
         (response) => {
-          console.log("Response received in popup:", response);
-
           if (response?.carDetails) {
             setCarDetails(response.carDetails);
           }
         }
       );
 
+      // Request all stored cars from the background script
+      chrome.runtime.sendMessage(
+        { action: "getAllTrackedCars" },
+        (response) => {
+          if (response?.trackedCars) {
+            setAllTrackedCarDetailsDictionary(response.trackedCars);
+            console.log(allTrackedCarDetailsDictionary);
+          }
+        }
+      );
+
       // TODO: Get list of current tracked cars
     });
-  }, []);
+  }, [allTrackedCarDetailsDictionary]);
 
   const handleRemoveAll = () => {
     setCarDetails(null); // Clear all tracked car details
@@ -51,7 +62,6 @@ export const Popup = () => {
             car={carDetails}
             isNew={false}
           />
-
           <CarDetails
             isHighlighted={true}
             car={carDetails}
@@ -66,6 +76,11 @@ export const Popup = () => {
       ) : (
         <div className="text-lg font-bold">No car details available</div>
       )}
+
+      <CarList trackedCars={allTrackedCarDetailsDictionary} />
+
+
+      <pre>{JSON.stringify(allTrackedCarDetailsDictionary, null, 2)}</pre>
     </div>
   );
 };

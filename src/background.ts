@@ -56,10 +56,10 @@ function removeCarFromTrackedCars(carDetails: ICarDetails) {
  * Retrieve the global tracked cars dictionary from local storage.
  * @returns A promise resolving to the tracked cars dictionary.
  */
-function getTrackedCars(): Promise<{ [carUrl: string]: ICarDetails }> {
+function getAllTrackedCars(): Promise<{ [carUrl: string]: ICarDetails[] }> {
     return new Promise((resolve) => {
         chrome.storage.local.get(["trackedCars"], (result) => {
-            resolve(result.trackedCars || {});
+            resolve(result.trackedCars || []);
         });
     });
 }
@@ -83,8 +83,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ carDetails });
     }
 
-    if (message.action === "getTrackedCars") {
-        getTrackedCars().then((trackedCars) => {
+    if (message.action === "getAllTrackedCars") {
+        getAllTrackedCars().then((trackedCars) => {
             sendResponse({ trackedCars });
         });
         return true; // Indicate asynchronous response

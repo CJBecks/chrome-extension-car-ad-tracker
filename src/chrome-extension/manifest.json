@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Vehicle Listing Tracker by automall.ca",
+  "name": "AutoMall Vehicle Tracker",
   "version": "1.0.0",
   "action": {
     "default_popup": "popup.html"
@@ -15,8 +15,7 @@
       "js": ["content.js"]
     }
   ],
-  "options_page": "options.html",
-  "description": "This is the description of your extension",
+  "description": "AutoMall Vehicle Tracker is a browser plugin that helps users save and track vehicle listings from multiple marketplaces. It automatically extracts key details like make, model, and year, making it easy to organize and compare saved vehicles.",
   "icons": {
     "16": "public/automall-logo-16.png",
     "32": "public/automall-logo-32.png",

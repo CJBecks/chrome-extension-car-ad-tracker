@@ -27,7 +27,7 @@ export const Popup = () => {
   const handleRemoveAll = () => {
     setCarDetails(null); // Clear all tracked car details
     // Optionally, send a message to the background script to clear the cache
-    chrome.runtime.sendMessage({ action: "clearAllCarDetails" });
+    chrome.runtime.sendMessage({ action: "clearAllSavedCars" });
   };
 
   return (
@@ -45,30 +45,22 @@ export const Popup = () => {
         <>
           <CarDetails
             car={carDetails}
-            onRemove={() => {}}
             isNew={true}
-            onTrack={() => {}}
           />
           <CarDetails
             car={carDetails}
-            onRemove={() => {}}
             isNew={false}
-            onTrack={() => {}}
           />
 
           <CarDetails
             isHighlighted={true}
             car={carDetails}
-            onRemove={() => {}}
             isNew={true}
-            onTrack={() => {}}
           />
           <CarDetails
             isHighlighted={true}
             car={carDetails}
-            onRemove={() => {}}
             isNew={false}
-            onTrack={() => {}}
           />
         </>
       ) : (

@@ -5,11 +5,19 @@ interface CarDetailsProps {
   car: ICarDetails;
   isNew: boolean;
   isHighlighted?: boolean;
-  onRemove: () => void;
-  onTrack: () => void;
 }
 
-export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighted = false, onRemove, onTrack }) => {
+export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighted = false }) => {
+
+  function removeCarFromTrackedCars() {
+    chrome.runtime.sendMessage({ action: "removeCarFromTrackedCars", carDetails: car });
+  }
+
+  function saveCarToTrackedCars() {
+    // Save the car to the global tracked cars dictionary
+    chrome.runtime.sendMessage({ action: "saveCarToTrackedCars", carDetails: car });
+  }
+
   return (
     <div
       className={`p-4 border rounded shadow-md ${
@@ -26,7 +34,7 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
           className="mt-2 px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600"
           onClick={(e) => {
             e.stopPropagation();
-            onTrack();
+            saveCarToTrackedCars();
           }}
         >
           Track
@@ -36,7 +44,7 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
           className="mt-2 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
           onClick={(e) => {
             e.stopPropagation();
-            onRemove();
+            removeCarFromTrackedCars();
           }}
         >
           Remove

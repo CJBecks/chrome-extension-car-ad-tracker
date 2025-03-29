@@ -55,27 +55,12 @@ export const Popup = () => {
       {carDetails ? (
         <>
           <CarDetails
-            car={carDetails}
-            isNew={true}
-          />
-          <CarDetails
-            car={carDetails}
-            isNew={false}
-          />
-          <CarDetails
             isHighlighted={true}
             car={carDetails}
             isNew={true}
-          />
-          <CarDetails
-            isHighlighted={true}
-            car={carDetails}
-            isNew={false}
           />
         </>
-      ) : (
-        <div className="text-lg font-bold">No car details available</div>
-      )}
+      ) : null}
 
       <CarList trackedCars={allTrackedCarDetailsDictionary} />
 

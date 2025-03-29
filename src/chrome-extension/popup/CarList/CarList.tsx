@@ -25,7 +25,6 @@ export const CarList = ({ filterCarId, trackedCars }: CarListProps) => {
     <div className="space-y-4">
       {Object.entries(filteredCars).length > 0 ? (
         <>
-          <h2>Tracked Cars:</h2>
           <input
             type="text"
             placeholder="Search..."
@@ -38,7 +37,7 @@ export const CarList = ({ filterCarId, trackedCars }: CarListProps) => {
           )}
         </>
       ) : (
-        <div className="text-lg font-bold">No cars to display</div>
+        <div className="text-lg font-bold">No cars to display.. find something interesting</div>
       )}
     </div>
   );

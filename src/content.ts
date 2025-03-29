@@ -19,7 +19,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const car = extractCarDetails();
 
       if (car.make) {
-        console.log('Found car details:', car);
+        console.log('Found car details:', car, sender.tab);
+        // Send car details to the background script
+        // add the tabId to the messages
+        chrome.runtime.sendMessage({ action: "carDetailsExtracted", carDetails: car});
       } else {
         console.log('No car details found');
       }

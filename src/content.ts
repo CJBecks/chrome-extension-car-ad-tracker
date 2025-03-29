@@ -8,13 +8,34 @@ export interface ICarDetails {
   daysOnMarket?: number;
 }
 
-const carDetails: ICarDetails = {
-  url: window.location.href,
-};
 
-// TODO: Extract from DOM
-function extractCarDetails() {
-  console.log("Extracting car details...");
+/**
+ * Listen for messages from the background script.
+ */
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log("Message received in content script:", message, sender, sendResponse);
+
+  if (message.action === "extractCarDetails") {
+      const car = extractCarDetails();
+
+      if (car.make) {
+        console.log('Found car details:', car);
+      } else {
+        console.log('No car details found');
+      }
+  }
+});
+
+
+/**
+ * Extract car details from the page.
+ * 
+ * This only works for some websites!
+ */
+function extractCarDetails(): ICarDetails {
+  const carDetails: ICarDetails = {
+    url: window.location.href,
+  };
 
   const headingElement = document.querySelector(".heading-year-make-model");
   if (headingElement) {
@@ -36,11 +57,9 @@ function extractCarDetails() {
   const dateListedElement = document.querySelector(".car-date-listed-selector");
 
   carDetails.price =
-    (priceElement as HTMLElement)?.innerText || "Unknown Price";
+    (priceElement as HTMLElement)?.innerText || undefined;
   carDetails.dateListed =
-    (dateListedElement as HTMLElement)?.innerText || "Unknown Date";
+    (dateListedElement as HTMLElement)?.innerText || undefined;
 
-  console.log("Extracted Car Details:", carDetails);
+  return carDetails;
 }
-
-extractCarDetails();

@@ -18,6 +18,8 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
     chrome.runtime.sendMessage({ action: "saveCarToTrackedCars", carDetails: car });
   }
 
+  const formattedPrice = car.price?.startsWith("$") ? car.price : `$${car.price}`;
+
   return (
     <div
       className={`p-4 border rounded shadow-md transition-all ${
@@ -26,7 +28,7 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
     >
       <h4 className="text-lg font-bold">{car.make} {car.model}</h4>
       <p className="text-sm">Year: {car.year}</p>
-      <p className="text-sm">Price: {car.price}</p>
+      <p className="text-sm">Price: {formattedPrice}</p>
       {/* <p className="text-sm">Days on Market: {car.daysOnMarket ?? "Unknown"}</p> */}
       <p className="text-sm">
         URL: <a href={car.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{car.url}</a>

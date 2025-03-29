@@ -14,7 +14,7 @@ export const Popup = () => {
       chrome.runtime.sendMessage(
         { action: "getCarDetails", tabId: tabs[0].id },
         (response) => {
-          if (response?.carDetails) {
+          if (response?.carDetails && response?.carDetails.price != undefined) {
             setCarDetails(response.carDetails);
           }
         }
@@ -44,7 +44,10 @@ export const Popup = () => {
   return (
     <div className="p-4 space-y-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Tracked Advertisements</h1>
+        <div className="flex items-center space-x-2">
+          <img src="public/automall-logo-48.png" alt="Automall Logo" className="w-8 h-8" />
+          <h1 className="text-2xl font-bold">Tracked Advertisements</h1>
+        </div>
         <button
           className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
           onClick={handleRemoveAll}

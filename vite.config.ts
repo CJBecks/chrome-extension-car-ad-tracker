@@ -10,10 +10,10 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         { src: "src/chrome-extension/manifest.json", dest: "." },
-        { src: "src/chrome-extension/public/16.png", dest: "./public" },
-        { src: "src/chrome-extension/public/32.png", dest: "./public" },
-        { src: "src/chrome-extension/public/48.png", dest: "./public" },
-        { src: "src/chrome-extension/public/192.png", dest: "./public" },
+        { src: "src/chrome-extension/public/automall-logo-16.png", dest: "./public" },
+        { src: "src/chrome-extension/public/automall-logo-32.png", dest: "./public" },
+        { src: "src/chrome-extension/public/automall-logo-48.png", dest: "./public" },
+        { src: "src/chrome-extension/public/automall-logo-192.png", dest: "./public" },
       ],
     }),
   ],

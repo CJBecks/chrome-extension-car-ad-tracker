@@ -31,7 +31,9 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
       <p className="text-sm">Price: {formattedPrice}</p>
       {/* <p className="text-sm">Days on Market: {car.daysOnMarket ?? "Unknown"}</p> */}
       <p className="text-sm">
-        URL: <a href={car.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{car.url}</a>
+        URL: <a href={car.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline break-all">
+          {new URL(car.url).hostname}
+        </a>
       </p>
       {isNew ? (
         <button

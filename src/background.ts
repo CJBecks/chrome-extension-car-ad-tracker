@@ -75,7 +75,6 @@ function clearAllSavedCars() {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "carDetailsExtracted" && sender.tab?.id !== undefined) {
         carDetailsCache[sender.tab?.id] = message.carDetails;
-        console.log(`Car details cached for tab ${sender.tab?.id}:`, message.carDetails, sendResponse);
     }
 
     if (message.action === "getCarDetails" && message.tabId !== undefined) {

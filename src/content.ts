@@ -15,19 +15,13 @@ export interface ICarDetails {
 /**
  * Listen for messages from the background script.
  */
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log("Message received in content script:", message, sender, sendResponse);
-
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "extractCarDetails") {
       const car = extractCarDetails();
 
       if (car.make) {
-        console.log('Found car details:', car, sender.tab);
         // Send car details to the background script
-        // add the tabId to the messages
         chrome.runtime.sendMessage({ action: "carDetailsExtracted", carDetails: car});
-      } else {
-        console.log('No car details found');
       }
   }
 });

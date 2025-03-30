@@ -2,7 +2,6 @@ import { ICarDetails } from "../content";
 
 export function autoTraderStrategy(carDetails: ICarDetails) {
     const headingElement = document.querySelector(".hero-title");
-    console.log('Heading Element', headingElement);
   
     if (headingElement) {
       const headingText = (headingElement as HTMLElement).innerText;

@@ -26,7 +26,6 @@ export const Popup = () => {
         (response) => {
           if (response?.trackedCars) {
             setAllTrackedCarDetailsDictionary(response.trackedCars);
-            console.log(allTrackedCarDetailsDictionary);
           }
         }
       );

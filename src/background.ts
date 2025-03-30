@@ -29,6 +29,21 @@ function callActionToExtractCarDetailsFromTheDOM(tabId: number) {
 const carDetailsCache: { [tabId: string]: ICarDetails | null } = {};
 
 /**
+ * Update the badge text with the count of new car listings.
+ */
+function updateBadge() {
+    chrome.action.setBadgeText({ text: "!" });
+    chrome.action.setBadgeBackgroundColor({ color: "#FF0000" }); // Red background for the badge
+}
+
+/**
+ * Clear the badge text.
+ */
+function clearBadge() {
+    chrome.action.setBadgeText({ text: "" });
+}
+
+/**
  * Save a car's details to the global tracked cars dictionary in local storage.
  * @param carDetails - The car details to save.
  */
@@ -75,6 +90,14 @@ function clearAllSavedCars() {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "carDetailsExtracted" && sender.tab?.id !== undefined) {
         carDetailsCache[sender.tab?.id] = message.carDetails;
+
+        if (message.carDetails) {
+            getAllTrackedCars().then((trackedCars) => {
+                if (!trackedCars[message.carDetails.url]) {
+                    updateBadge(); // Update the badge with the new count
+                }
+            });
+        }
     }
 
     if (message.action === "getCarDetails" && message.tabId !== undefined) {
@@ -101,6 +124,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     if (message.action === "clearAllSavedCars") {
         clearAllSavedCars();
+        return true; // Indicate asynchronous response
+    }
+
+    if (message.action === "clearBadge") {
+        clearBadge();
         return true; // Indicate asynchronous response
     }
 });

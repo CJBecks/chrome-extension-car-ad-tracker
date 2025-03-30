@@ -9,6 +9,8 @@ export const Popup = () => {
   const [allTrackedCarDetailsDictionary, setAllTrackedCarDetailsDictionary] = useState<{ [tabId: string]: ICarDetails | null }>({});
 
   useEffect(() => {
+    chrome.runtime.sendMessage({ action: "clearBadge" }); // Clear the badge when the popup is opened
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       // Request car details from the background script
       chrome.runtime.sendMessage(

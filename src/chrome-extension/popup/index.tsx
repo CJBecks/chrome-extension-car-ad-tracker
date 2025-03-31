@@ -47,8 +47,14 @@ export const Popup = () => {
   const confirmRemoveAll = () => {
     setCarDetails(null); // Clear all tracked car details
     chrome.runtime.sendMessage({ action: "clearAllSavedCars" }); // Clear the cache
-    chrome.runtime.sendMessage({ action: "clearBadge" }); // Remove the notification
-    // chrome.runtime.sendMessage({ action: "showNewCarBadge" }); // Update badge to reflect no tracked cars
+
+    // If the current car is not tracked, show the new car badge
+    if (carDetails) {
+      chrome.runtime.sendMessage({ action: "showNewCarBadge" });
+    } else {
+      chrome.runtime.sendMessage({ action: "clearBadge" }); // Remove the notification
+    }
+
     setIsModalOpen(false); // Close the modal
   };
 

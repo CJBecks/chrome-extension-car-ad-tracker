@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener((message) => {
       const car = extractCarDetails();
 
       if (car.make) {
-        // Send car details to the background script
+        // Send car details to the background scriptS
         chrome.runtime.sendMessage({ action: "carDetailsExtracted", carDetails: car});
       }
   }

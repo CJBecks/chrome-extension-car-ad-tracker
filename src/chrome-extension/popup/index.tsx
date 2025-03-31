@@ -3,10 +3,12 @@ import "../global.css";
 import { useEffect, useState } from "react";
 import { CarDetails } from "./CarDetails/CarDetails";
 import { CarList } from "./CarList/CarList";
+import { ConfirmationModal } from "./ConfirmationModal/ConfirmationModal"; // Import the modal component
 
 export const Popup = () => {
   const [carDetails, setCarDetails] = useState<ICarDetails | null>(null);
   const [allTrackedCarDetailsDictionary, setAllTrackedCarDetailsDictionary] = useState<{ [tabId: string]: ICarDetails | null }>({});
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
   useEffect(() => {
     chrome.runtime.sendMessage({ action: "clearBadge" }); // Clear the badge when the popup is opened
@@ -37,9 +39,19 @@ export const Popup = () => {
   }, [allTrackedCarDetailsDictionary]);
 
   const handleRemoveAll = () => {
+    if (Object.keys(allTrackedCarDetailsDictionary).length > 0) {
+      setIsModalOpen(true); // Open the modal only if there are listings to clear
+    }
+  };
+
+  const confirmRemoveAll = () => {
     setCarDetails(null); // Clear all tracked car details
-    // Optionally, send a message to the background script to clear the cache
-    chrome.runtime.sendMessage({ action: "clearAllSavedCars" });
+    chrome.runtime.sendMessage({ action: "clearAllSavedCars" }); // Clear the cache
+    setIsModalOpen(false); // Close the modal
+  };
+
+  const cancelRemoveAll = () => {
+    setIsModalOpen(false); // Close the modal
   };
 
   return (
@@ -55,6 +67,12 @@ export const Popup = () => {
         >
           Remove All
         </button>
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onConfirm={confirmRemoveAll}
+          onCancel={cancelRemoveAll}
+          message="Are you sure you want to remove all saved listings?"
+        />
       </div>
       {carDetails && !Object.values(allTrackedCarDetailsDictionary).some(
         (trackedCar) => trackedCar?.url === carDetails.url

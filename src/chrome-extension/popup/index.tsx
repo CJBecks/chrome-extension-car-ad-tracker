@@ -11,7 +11,7 @@ export const Popup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
   useEffect(() => {
-    chrome.runtime.sendMessage({ action: "clearBadge" }); // Clear the badge when the popup is opened
+    //chrome.runtime.sendMessage({ action: "clearBadge" }); // Clear the badge when the popup is opened
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       // Request car details from the background script
@@ -47,6 +47,8 @@ export const Popup = () => {
   const confirmRemoveAll = () => {
     setCarDetails(null); // Clear all tracked car details
     chrome.runtime.sendMessage({ action: "clearAllSavedCars" }); // Clear the cache
+    chrome.runtime.sendMessage({ action: "clearBadge" }); // Remove the notification
+    // chrome.runtime.sendMessage({ action: "showNewCarBadge" }); // Update badge to reflect no tracked cars
     setIsModalOpen(false); // Close the modal
   };
 

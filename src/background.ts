@@ -4,6 +4,7 @@
 import { ICarDetails } from "./content";
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
+    clearBadge();
     chrome.tabs.get(activeInfo.tabId, (tab) => {
         if (tab.url) {
             callActionToExtractCarDetailsFromTheDOM(activeInfo.tabId);
@@ -144,7 +145,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 
     if (message.action === "showNewCarBadge") {
-        showTrackedCarBadge();
+        showNewCarBadge();
         return true; // Indicate asynchronous response
     }
 

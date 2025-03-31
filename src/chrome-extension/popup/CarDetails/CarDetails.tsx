@@ -11,11 +11,15 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
 
   function removeCarFromTrackedCars() {
     chrome.runtime.sendMessage({ action: "removeCarFromTrackedCars", carDetails: car });
+    if (isHighlighted) {
+      chrome.runtime.sendMessage({ action: "showNewCarBadge" }); // Update badge to reflect car removal
+    }
   }
 
   function saveCarToTrackedCars() {
     // Save the car to the global tracked cars dictionary
     chrome.runtime.sendMessage({ action: "saveCarToTrackedCars", carDetails: car });
+    chrome.runtime.sendMessage({ action: "showTrackedCarBadge" }); // Update badge to reflect car addition
   }
 
   const formattedPrice = car.price?.startsWith("$") ? car.price : `$${car.price}`;

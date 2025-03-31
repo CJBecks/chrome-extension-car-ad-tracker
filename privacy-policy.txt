@@ -1,0 +1,33 @@
+AutoMall Vehicle Tracker – Privacy Policy
+1. Information We Collect
+AutoMall Vehicle Tracker collects the following data when you interact with the extension:
+
+Website Content: The extension extracts make, model, and price from car listing pages that users choose to save.
+
+Storage Data: Saved listings are stored locally in your browser.
+
+2. How We Use Your Information
+To allow users to save and manage car listings from supported marketplaces.
+
+To improve user experience and extension functionality.
+
+3. Data Sharing & Third Parties
+We do not sell, rent, or share your data with third parties.
+
+No personally identifiable information (PII) is collected.
+
+4. Data Security
+Your saved listings are stored only in your browser and are not sent to external servers.
+
+We follow industry standards to ensure your data remains private and secure.
+
+5. User Control
+You can delete saved listings at any time.
+
+The extension does not track or monitor your browsing history.
+
+6. Changes to This Policy
+We may update this Privacy Policy from time to time. Continued use of the extension indicates acceptance of the updated policy.
+
+7. Contact Us
+For any questions regarding this Privacy Policy, contact us at connorjamesbecker@gmail.com

@@ -15,7 +15,7 @@
       "js": ["content.js"]
     }
   ],
-  "description": "AutoMall Vehicle Tracker is a browser plugin that helps users save and track vehicle listings from multiple marketplaces. It automatically extracts key details like make, model, and year, making it easy to organize and compare saved vehicles.",
+  "description": "AutoMall Vehicle Tracker is a browser plugin that helps users save and track vehicle listings from multiple marketplaces",
   "icons": {
     "16": "public/automall-logo-16.png",
     "32": "public/automall-logo-32.png",

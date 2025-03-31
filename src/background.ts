@@ -13,6 +13,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    clearBadge();
     if (changeInfo.status === 'complete' && tab.url) {
         callActionToExtractCarDetailsFromTheDOM(tabId);
     }
@@ -101,12 +102,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "carDetailsExtracted" && sender.tab?.id !== undefined) {
         carDetailsCache[sender.tab?.id] = message.carDetails;
 
-        if (message.carDetails) {
+        if (message.carDetails && message.carDetails.price !== undefined) {
             getAllTrackedCars().then((trackedCars) => {
                 if (!trackedCars[message.carDetails.url]) {
-                    showNewCarBadge(); // Update the badge with the new count
+                    showNewCarBadge(); // Show an orange badge
                 } else {
-                    showTrackedCarBadge(); // Show a green badge with a checkmark
+                    showTrackedCarBadge(); // Show a green badge 
                 }
             });
         }

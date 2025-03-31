@@ -31,9 +31,18 @@ const carDetailsCache: { [tabId: string]: ICarDetails | null } = {};
 /**
  * Update the badge text with the count of new car listings.
  */
-function updateBadge() {
-    chrome.action.setBadgeText({ text: "!" });
-    chrome.action.setBadgeBackgroundColor({ color: "#FF0000" }); // Red background for the badge
+function showNewCarBadge() {
+    chrome.action.setBadgeText({ text: " " });
+    chrome.action.setBadgeBackgroundColor({ color: "#FFA500" }); // Orange background for the badge
+}
+
+/**
+ * Update the badge to indicate a tracked car is detected with a softer green color and smaller text.
+ */
+function showTrackedCarBadge() {
+    chrome.action.setBadgeText({ text: " " });
+    chrome.action.setBadgeBackgroundColor({ color: "#228B22" }); // Darker green (ForestGreen)
+    chrome.action.setBadgeTextColor({ color: "#FFFFFF" }); // Ensure text is readable
 }
 
 /**
@@ -94,7 +103,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.carDetails) {
             getAllTrackedCars().then((trackedCars) => {
                 if (!trackedCars[message.carDetails.url]) {
-                    updateBadge(); // Update the badge with the new count
+                    showNewCarBadge(); // Update the badge with the new count
+                } else {
+                    showTrackedCarBadge(); // Show a green badge with a checkmark
                 }
             });
         }
@@ -129,6 +140,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     if (message.action === "clearBadge") {
         clearBadge();
+        return true; // Indicate asynchronous response
+    }
+
+    if (message.action === "showNewCarBadge") {
+        showTrackedCarBadge();
+        return true; // Indicate asynchronous response
+    }
+
+    if (message.action === "showTrackedCarBadge") {
+        showTrackedCarBadge();
         return true; // Indicate asynchronous response
     }
 });

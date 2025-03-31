@@ -22,8 +22,12 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
 
   return (
     <div
-      className={`relative p-4 border rounded shadow-md transition-all ${
-        isHighlighted ? "bg-blue-100 border-blue-500 hover:bg-blue-200" : "bg-white border-gray-300 hover:bg-gray-200"
+      className={`relative p-4 rounded shadow-md transition-all ${
+        isHighlighted
+          ? isNew
+            ? "border-2 border-[#FFA500]/50 bg-orange-50 hover:bg-orange-100 hover:border-orange-500/50"
+            : "border-2 border-[#228B22]/50 bg-green-50 hover:bg-green-100 hover:border-green-700/50"
+          : "border border-gray-300 bg-white hover:border-gray-400 hover:bg-gray-100"
       }`}
     >
       <div className="flex justify-between items-center">

@@ -22,5 +22,5 @@
     "48": "public/automall-logo-48.png",
     "192": "public/automall-logo-192.png"
   },
-  "permissions": ["tabs", "activeTab", "scripting", "storage", "notifications"]
+  "permissions": ["tabs", "activeTab", "storage"]
 }

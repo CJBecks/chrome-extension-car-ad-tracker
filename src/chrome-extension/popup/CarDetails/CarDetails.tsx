@@ -22,7 +22,9 @@ export const CarDetails: React.FC<CarDetailsProps> = ({ car, isNew, isHighlighte
     chrome.runtime.sendMessage({ action: "showTrackedCarBadge" }); // Update badge to reflect car addition
   }
 
-  const formattedPrice = car.price?.startsWith("$") ? car.price : `$${car.price}`;
+  // const formattedPrice = car.price?.startsWith("$") ? car.price : `$${car.price}`;
+
+  const formattedPrice = `$${car.price}`;
 
   return (
     <div

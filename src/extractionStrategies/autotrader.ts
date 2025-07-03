@@ -27,7 +27,7 @@ export function autoTraderStrategy(carDetails: ICarDetails) {
       }
     }
   
-    const priceElement = document.querySelector(".hero-price");
-    carDetails.price =
-      (priceElement as HTMLElement)?.innerText || undefined;
+    // const priceElement = document.querySelector(".hero-price");
+    // carDetails.price =
+    //   (priceElement as HTMLElement)?.innerText || undefined;
   }

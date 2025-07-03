@@ -7,11 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "api": "node api-parser/index.js"
   },
   "dependencies": {
     "@types/node": "^22.5.5",
     "@xenova/transformers": "^2.17.2",
+    "axios": "^1.10.0",
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "react": "^18.3.1",

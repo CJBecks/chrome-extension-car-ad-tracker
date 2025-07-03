@@ -41,9 +41,10 @@ function extractCarDetails(text, entities) {
             } else if (!carDetails.model) {
                 carDetails.model = word; // Likely the model
             }
-        } else if (entity_group === "MONEY" || word.startsWith("$")) {
-            carDetails.price = word.replace(/[^\d]/g, ""); // Extract price digits
-        }
+        } 
+        // else if (entity_group === "MONEY" || word.startsWith("$")) {
+        //     carDetails.price = word.replace(/[^\d]/g, ""); // Extract price digits
+        // }
     }
 
     return carDetails;

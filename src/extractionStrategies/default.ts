@@ -17,11 +17,11 @@ export function defaultStrategy(carDetails: ICarDetails) {
         )?.innerText.trim() || undefined;
     }
   
-    const priceElement = document.querySelector(".english-price");
+    // const priceElement = document.querySelector(".english-price");
     const dateListedElement = document.querySelector(".car-date-listed-selector");
   
-    carDetails.price =
-      (priceElement as HTMLElement)?.innerText || undefined;
+    // carDetails.price =
+    //   (priceElement as HTMLElement)?.innerText || undefined;
     carDetails.dateListed =
       (dateListedElement as HTMLElement)?.innerText || undefined;
   }
